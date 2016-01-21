@@ -1,29 +1,28 @@
 require 'boxr'
 
+##
+# Public: CarrierWave Storage definition
 module CarrierWave
   module Storage
     class Box < Abstract
-
       # Stubs we must implement to create and save
       # files (here on Dropbox)
 
       # Store a single file
       def store!(file)
-        location = (config[:access_type] == "dropbox") ? "/#{uploader.store_path}" : uploader.store_path
-        dropbox_client.put_file(location, file.to_file)
+        # location = (config[:access_type] == "dropbox") ?
+        # "/#{uploader.store_path}" : uploader.store_path
+        box_client.put_file(uploader.store_path, file.to_file)
       end
 
       # Retrieve a single file
       def retrieve!(file)
-        CarrierWave::Storage::Dropbox::File.new(uploader, config, uploader.store_path(file), dropbox_client)
+        CarrierWave::Storage::Box::File
+          .new(uploader, config, uploader.store_path(file), box_client)
       end
 
-      def dropbox_client
-        @dropbox_client ||= begin
-          session = DropboxSession.new(config[:app_key], config[:app_secret])
-          session.set_access_token(config[:access_token], config[:access_token_secret])
-          DropboxClient.new(session, config[:access_type])
-        end
+      def box_client
+        @box_client ||= Boxr::Client.new(config[:developer_token])
       end
 
       private
@@ -31,12 +30,7 @@ module CarrierWave
       def config
         @config ||= {}
 
-        @config[:app_key] ||= uploader.dropbox_app_key
-        @config[:app_secret] ||= uploader.dropbox_app_secret
-        @config[:access_token] ||= uploader.dropbox_access_token
-        @config[:access_token_secret] ||= uploader.dropbox_access_token_secret
-        @config[:access_type] ||= uploader.dropbox_access_type || "dropbox"
-        @config[:user_id] ||= uploader.dropbox_user_id
+        @config[:developer_token] ||= uploader.box_developer_token
 
         @config
       end
@@ -46,20 +40,18 @@ module CarrierWave
         attr_reader :path
 
         def initialize(uploader, config, path, client)
-          @uploader, @config, @path, @client = uploader, config, path, client
+          @uploader = uploader
+          @config = config
+          @path = path
+          @client = client
         end
 
         def url
-          @client.media(@path)["url"]
+          @client.media(@path)['url']
         end
 
         def delete
-          path = @path
-          path = "/#{path}" if @config[:access_type] == "dropbox"
-          begin
-            @client.file_delete(path)
-          rescue DropboxError
-          end
+          @client.file_delete(@path)
         end
       end
     end
