@@ -12,7 +12,7 @@ module CarrierWave
       def store!(file)
         # location = (config[:access_type] == "dropbox") ?
         # "/#{uploader.store_path}" : uploader.store_path
-        box_client.put_file(uploader.store_path, file.to_file)
+        box_client.upload_file(file.to_file, uploader.store_path)
       end
 
       # Retrieve a single file
@@ -47,11 +47,11 @@ module CarrierWave
         end
 
         def url
-          @client.media(@path)['url']
+          @client.download_url(@path)
         end
 
         def delete
-          @client.file_delete(@path)
+          @client.delete_file(@path)
         end
       end
     end

@@ -2,7 +2,6 @@ require 'carrierwave'
 require 'carrierwave/storage/box'
 
 require 'carrierwave/box/version'
-require 'carrierwave/box/railtie' if defined?(Rails)
 
 module CarrierWave
   module Uploader
