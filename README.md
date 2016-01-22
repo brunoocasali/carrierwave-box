@@ -1,8 +1,8 @@
 # CarrierWave::Box
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/carrierwave/box`. To experiment with that code, run `bin/console` for an interactive prompt.
+I'm developing the gem to access box api but I discovered that them not allow you to get the direct download as a free user.
+So, I won't pay for this service. So I'll not continue the development of this gem! **not yet**
 
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
