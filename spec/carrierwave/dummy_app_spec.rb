@@ -7,7 +7,7 @@ RSpec.describe DummyApplication do
 
       post 'image/upload', attachment: file_upload('rails.png')
 
-      expect(last_response.status).to eq(:success)
+      expect(last_response.status).to eq(200)
       expect(Image.count - original_count).to eq(1)
       expect(Image.last.attachment.url).to be_empty
     end

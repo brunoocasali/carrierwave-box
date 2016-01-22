@@ -18,7 +18,7 @@ ActiveRecord::Schema.define do
 end
 
 CarrierWave.configure do |config|
-  config.box_developer_token = '6cVEGdWYXTVUsl43jR3woQyY7Hiz7U1z'
+  config.box_developer_token = 'VODVzt9fAlHScqQemAXPHoTar1QrVaWU'
 end
 
 class ImageUploader < CarrierWave::Uploader::Base

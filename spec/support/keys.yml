@@ -1,0 +1,24 @@
+client_secret: V6YkiJi8X0mRdCprmEV65IQIw4d2uA3K
+client_id: d9urio74bv3nuap7pb42ub8xv2lnewcp
+developer_token: Ji3PzvXigvfGZnp1RYkzO5qHu1vKx7Dr
+api_key: d9urio74bv3nuap7pb42ub8xv2lnewcp
+
+code: RNItOZkM7ahJ6Aja7q8AKgwq4YbEqSKa
+
+# help: https://developers.box.com/oauth/
+# acesse essa URL para dar a permissão ao app manipular os arquivos.
+url: https://app.box.com/api/oauth2/authorize?response_type=code&client_id=d9urio74bv3nuap7pb42ub8xv2lnewcp&state=security_token%3DKnhMJatFipTAnM0nHlZA
+# clique no botão "grant access to box" e então ele usará a url de retorno (redirect_id) para mandar o code,
+# veja a url de retorno e o parametro code ao final dela.
+url2: http://localhost:3000/?state=security_token%3DKnhMJatFipTAnM0nHlZA&code=RNItOZkM7ahJ6Aja7q8AKgwq4YbEqSKa
+# agora você precisa pegar o access_token mas seja rápido o "code" que você acaba de pegar dura apenas 30seg.
+curl_code: curl https://app.box.com/api/oauth2/token -d 'grant_type=authorization_code&code=M9g4Yl1I0IVlEMgNabAW1aroWLn8zrRm&client_id=d9urio74bv3nuap7pb42ub8xv2lnewcp&client_secret=V6YkiJi8X0mRdCprmEV65IQIw4d2uA3K' -X POST
+# caso apareça esse erro: é porque você demorou muito, volte a etapa anterior e pegue um novo "code"
+# {"error":"invalid_grant","error_description":"The authorization code has expired"}
+# senão, você algo semelhante à isso:
+{
+ "access_token":"l4jD7LJcJmFHI9dcjDVNXgftFYdh2qez",
+ "expires_in":3746,
+ "restricted_to":[],
+ "refresh_token":"Uefp9FFymiW3X4PWaiaVCtNkQaG3BsrFxl67dqBI0v27n6fR8cHP5VtnJEYvyZhf","token_type":"bearer"
+ }
