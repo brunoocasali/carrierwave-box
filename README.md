@@ -1,7 +1,7 @@
 # CarrierWave::Box
 
 I'm developing the gem to access box api but I discovered that them not allow you to get the direct download as a free user.
-So, I won't pay for this service. So I'll not continue the development of this gem!
+So, I won't pay for this service. So I'll not continue the development of this gem! **not yet**
 
 
 ## Installation
